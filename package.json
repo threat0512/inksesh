@@ -1,0 +1,9 @@
+{
+  "name": "inksesh",
+  "private": true,
+  "packageManager": "pnpm@9.12.0",
+  "workspaces": [
+    "backend",
+    "frontend"
+  ]
+}
