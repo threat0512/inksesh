@@ -5,14 +5,18 @@
   "type": "module",
   "main": "dist/index.js",
   "scripts": {
-    "dev": "tsx watch src/index.ts",
+    "dev:api": "tsx watch src/index.ts",
+    "dev:worker": "tsx watch src/worker.ts",
     "build": "tsc",
-    "start": "node dist/index.js",
+    "start:api": "node dist/index.js",
+    "start:worker": "node dist/worker.js",
     "prisma:generate": "prisma generate",
     "prisma:migrate": "prisma migrate dev",
     "prisma:deploy": "prisma migrate deploy"
   },
   "dependencies": {
+    "@aws-sdk/client-s3": "^3.972.0",
+    "@aws-sdk/s3-request-presigner": "^3.972.0",
     "@prisma/adapter-pg": "^7.2.0",
     "@prisma/client": "^5.22.0",
     "cors": "^2.8.5",
@@ -22,6 +26,7 @@
     "jsonwebtoken": "^9.0.2",
     "morgan": "^1.10.0",
     "pg": "^8.17.2",
+    "pg-boss": "^12.5.4",
     "zod": "^3.23.8"
   },
   "devDependencies": {

@@ -7,6 +7,11 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+enum AssetType {
+  IMAGE
+  VIDEO
+}
+
 model AdminUser {
   id        String   @id @default(uuid())
   phone     String   @unique
@@ -21,6 +26,7 @@ model Studio {
   createdAt   DateTime @default(now())
 
   artists     Artist[]
+  assets      Asset[]
 }
 
 model Artist {
@@ -33,4 +39,37 @@ model Artist {
   studio    Studio   @relation(fields: [studioId], references: [id], onDelete: Cascade)
 
   @@index([studioId])
+}
+
+model Asset {
+  id                String    @id @default(uuid())
+  studioId          String
+  type              AssetType
+  mimeType          String
+  originalKey       String
+  originalSizeBytes Int?
+  status            String    @default("UPLOADED")
+  createdAt         DateTime  @default(now())
+
+  studio            Studio    @relation(fields: [studioId], references: [id], onDelete: Cascade)
+  variants          AssetVariant[]
+
+  @@index([studioId])
+}
+
+model AssetVariant {
+  id        String   @id @default(uuid())
+  assetId   String
+  kind      String
+  key       String
+  format    String
+  width     Int?
+  height    Int?
+  sizeBytes Int?
+  createdAt DateTime @default(now())
+
+  asset     Asset @relation(fields: [assetId], references: [id], onDelete: Cascade)
+
+  @@index([assetId])
+  @@unique([assetId, kind])
 }
