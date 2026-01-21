@@ -12,3 +12,25 @@ model AdminUser {
   phone     String   @unique
   createdAt DateTime @default(now())
 }
+
+model Studio {
+  id          String   @id @default(uuid())
+  name        String
+  area        String?
+  specialties String[]
+  createdAt   DateTime @default(now())
+
+  artists     Artist[]
+}
+
+model Artist {
+  id        String   @id @default(uuid())
+  studioId  String
+  name      String
+  styles    String[]
+  createdAt DateTime @default(now())
+
+  studio    Studio   @relation(fields: [studioId], references: [id], onDelete: Cascade)
+
+  @@index([studioId])
+}
