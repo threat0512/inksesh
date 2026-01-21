@@ -10,7 +10,7 @@ const envSchema = z.object({
   NODE_ENV: z.string().default("development"),
   DATABASE_URL: z.string().min(1),
   JWT_SECRET: z.string().min(1),
-  JWT_EXPIRES_IN: z.string().min(1).default("7d"),
+  JWT_EXPIRES_IN: z.union([z.string(), z.coerce.number()]).default("7d"),
   CORS_ORIGIN: z.string().min(1)
 });
 
