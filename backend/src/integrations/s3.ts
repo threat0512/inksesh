@@ -1,4 +1,4 @@
-import { S3Client, PutObjectCommand, GetObjectCommand } from "@aws-sdk/client-s3";
+import { S3Client, PutObjectCommand, GetObjectCommand, DeleteObjectCommand } from "@aws-sdk/client-s3";
 import { getSignedUrl } from "@aws-sdk/s3-request-presigner";
 import { env } from "../config/env";
 
@@ -97,6 +97,18 @@ export async function uploadToS3({
     Key: key,
     Body: buffer,
     ContentType: contentType,
+  });
+
+  await s3Client.send(command);
+}
+
+/**
+ * Delete object from S3
+ */
+export async function deleteFromS3({ key }: { key: string }): Promise<void> {
+  const command = new DeleteObjectCommand({
+    Bucket: env.AWS_S3_BUCKET,
+    Key: key,
   });
 
   await s3Client.send(command);

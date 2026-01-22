@@ -1,6 +1,6 @@
 import { prisma } from "../../db/prisma";
 import type { InitUploadInput } from "./assets.schemas";
-import { getPresignedPutUrl, getPresignedGetUrl } from "../../integrations/s3";
+import { getPresignedPutUrl, getPresignedGetUrl, deleteFromS3 } from "../../integrations/s3";
 import { publishOptimizeAsset } from "../../queue/boss";
 
 export class AssetsService {
@@ -133,21 +133,57 @@ export class AssetsService {
    * Delete asset by ID
    */
   static async deleteAsset(id: string) {
+    // Load asset with all variants
     const asset = await prisma.asset.findUnique({
       where: { id },
+      include: { variants: true },
     });
 
     if (!asset) {
       throw new Error("Asset not found");
     }
 
-    // Delete from database (variants cascade)
+    // Collect all S3 keys to delete
+    const keysToDelete: string[] = [asset.originalKey];
+    asset.variants.forEach((variant) => {
+      keysToDelete.push(variant.key);
+    });
+
+    // Delete S3 objects
+    const deletionResults = await Promise.allSettled(
+      keysToDelete.map(async (key) => {
+        try {
+          await deleteFromS3({ key });
+          console.log(`Deleted S3 object: ${key}`);
+          return { key, success: true };
+        } catch (error) {
+          console.error(`Failed to delete S3 object: ${key}`, error);
+          return { key, success: false, error };
+        }
+      })
+    );
+
+    // Check if any deletions failed
+    const failures = deletionResults.filter(
+      (result) => result.status === "rejected" || 
+      (result.status === "fulfilled" && !result.value.success)
+    );
+
+    if (failures.length > 0) {
+      console.warn(
+        `Asset ${id}: ${failures.length}/${keysToDelete.length} S3 deletions failed. ` +
+        `DB will still be cleaned up to keep UI consistent.`
+      );
+    } else {
+      console.log(`All S3 objects deleted for asset ${id}`);
+    }
+
+    // Delete from database
     await prisma.asset.delete({
       where: { id },
     });
 
-    // TODO: Delete S3 objects (originalKey + all variant keys)
-    // Will implement in later phase
+    console.log(`Asset ${id} deleted from database`);
 
     return { ok: true };
   }
