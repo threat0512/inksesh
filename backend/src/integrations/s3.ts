@@ -55,3 +55,49 @@ export async function getPresignedGetUrl({
 
   return url;
 }
+
+/**
+ * Download file from S3 to Buffer
+ */
+export async function downloadFromS3({ key }: { key: string }): Promise<Buffer> {
+  const command = new GetObjectCommand({
+    Bucket: env.AWS_S3_BUCKET,
+    Key: key,
+  });
+
+  const response = await s3Client.send(command);
+
+  if (!response.Body) {
+    throw new Error(`No body in S3 response for key: ${key}`);
+  }
+
+  // Convert stream to buffer
+  const chunks: Uint8Array[] = [];
+  for await (const chunk of response.Body as any) {
+    chunks.push(chunk);
+  }
+
+  return Buffer.concat(chunks);
+}
+
+/**
+ * Upload buffer to S3
+ */
+export async function uploadToS3({
+  key,
+  buffer,
+  contentType,
+}: {
+  key: string;
+  buffer: Buffer;
+  contentType: string;
+}): Promise<void> {
+  const command = new PutObjectCommand({
+    Bucket: env.AWS_S3_BUCKET,
+    Key: key,
+    Body: buffer,
+    ContentType: contentType,
+  });
+
+  await s3Client.send(command);
+}

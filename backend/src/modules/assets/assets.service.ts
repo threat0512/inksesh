@@ -91,12 +91,27 @@ export class AssetsService {
       },
     });
 
-    // Generate signed URLs for each asset
+    // Generate signed URLs for each asset and its variants
     const assetsWithUrls = await Promise.all(
       assets.map(async (asset) => {
         const originalSignedUrl = await getPresignedGetUrl({
           key: asset.originalKey,
         });
+
+        // Generate signed URLs for all variants
+        const variantsWithUrls = await Promise.all(
+          asset.variants.map(async (v) => {
+            const url = await getPresignedGetUrl({ key: v.key });
+            return {
+              kind: v.kind,
+              url,
+              width: v.width,
+              height: v.height,
+              format: v.format,
+              sizeBytes: v.sizeBytes,
+            };
+          })
+        );
 
         return {
           id: asset.id,
@@ -106,14 +121,7 @@ export class AssetsService {
           originalSizeBytes: asset.originalSizeBytes,
           createdAt: asset.createdAt,
           originalSignedUrl,
-          variants: asset.variants.map((v) => ({
-            id: v.id,
-            kind: v.kind,
-            format: v.format,
-            width: v.width,
-            height: v.height,
-            sizeBytes: v.sizeBytes,
-          })),
+          variants: variantsWithUrls,
         };
       })
     );
