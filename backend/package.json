@@ -7,9 +7,7 @@
   "scripts": {
     "dev:api": "tsx watch src/index.ts",
     "dev:worker": "tsx watch src/worker.ts",
-    "dev": "concurrently \"pnpm dev:api\" \"pnpm dev:worker\"",
     "build": "tsc",
-    "start": "concurrently \"node dist/index.js\" \"node dist/worker.js\"",
     "start:api": "node dist/index.js",
     "start:worker": "node dist/worker.js",
     "prisma:generate": "prisma generate",
@@ -41,7 +39,6 @@
     "@types/morgan": "^1.9.10",
     "@types/node": "^20.19.30",
     "@types/pg": "^8.16.0",
-    "concurrently": "^9.1.2",
     "prisma": "^5.22.0",
     "tsx": "^4.21.0",
     "typescript": "^5.5.4"

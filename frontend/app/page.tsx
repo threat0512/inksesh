@@ -479,7 +479,7 @@ export default function HomePage() {
 
   // Login View
   if (view === "login") {
-    return (
+  return (
       <main className="min-h-screen flex items-center justify-center p-6">
         <div className="w-full max-w-md">
           <div className="rounded-3xl border border-[rgb(var(--border))] bg-[rgb(var(--card))] p-8 shadow-soft">
@@ -491,7 +491,7 @@ export default function HomePage() {
             </p>
 
             <div className="mt-6 space-y-4">
-              <div>
+                <div>
                 <label className="text-xs font-semibold uppercase tracking-[0.2em] text-[rgb(var(--muted))]">
                   Phone Number
                 </label>
@@ -503,7 +503,7 @@ export default function HomePage() {
                   disabled={otpSent || loginLoading}
                   className="mt-2 w-full rounded-xl border border-[rgb(var(--border))] bg-white px-4 py-3 text-sm text-[rgb(var(--ink))] focus:border-[rgb(var(--accent))] focus:outline-none disabled:opacity-50"
                 />
-              </div>
+            </div>
 
               {otpSent && (
                 <div>
@@ -554,9 +554,9 @@ export default function HomePage() {
                   </button>
                 </div>
               )}
-            </div>
-          </div>
-        </div>
+              </div>
+                      </div>
+                    </div>
       </main>
     );
   }
@@ -583,20 +583,20 @@ export default function HomePage() {
             className="rounded-xl border border-[rgb(var(--border))] bg-[rgb(var(--card))] px-5 py-2 text-sm font-medium text-[rgb(var(--muted))] transition hover:border-red-400 hover:text-red-600"
           >
             Logout
-          </button>
+                      </button>
         </header>
 
         {loading && (
           <div className="mt-10 text-center text-[rgb(var(--muted))]">
             Loading...
-          </div>
+                    </div>
         )}
 
         {!loading && (
           <div className="mt-10 space-y-6">
             {/* Studio Section */}
             <section className="rounded-3xl border border-[rgb(var(--border))] bg-[rgb(var(--card))] p-6 shadow-soft">
-              <div className="flex items-center justify-between">
+                <div className="flex items-center justify-between">
                 <h2 className="font-serif text-xl text-[rgb(var(--ink))]">
                   Studio Profile
                 </h2>
@@ -613,9 +613,9 @@ export default function HomePage() {
                   }}
                   className="rounded-xl border border-[rgb(var(--border))] px-4 py-2 text-sm font-medium text-[rgb(var(--muted))] transition hover:border-[rgb(var(--accent))]"
                 >
-                  Edit
-                </button>
-              </div>
+                    Edit
+                  </button>
+                </div>
               {studio && (
                 <div className="mt-4 space-y-3">
                   <div>
@@ -627,39 +627,39 @@ export default function HomePage() {
                     </p>
                   </div>
                   {studio.area && (
-                    <div>
+                  <div>
                       <p className="text-xs font-semibold uppercase tracking-[0.2em] text-[rgb(var(--muted))]">
                         Area
                       </p>
                       <p className="mt-1 text-sm text-[rgb(var(--ink))]">
                         {studio.area}
                       </p>
-                    </div>
+                  </div>
                   )}
                   {studio.specialties.length > 0 && (
-                    <div>
+                  <div>
                       <p className="text-xs font-semibold uppercase tracking-[0.2em] text-[rgb(var(--muted))]">
                         Specialties
                       </p>
-                      <div className="mt-2 flex flex-wrap gap-2">
+                    <div className="mt-2 flex flex-wrap gap-2">
                         {studio.specialties.map((s, i) => (
-                          <span
+                        <span
                             key={i}
                             className="rounded-full border border-[rgb(var(--border))] bg-white px-3 py-1 text-xs text-[rgb(var(--muted))]"
-                          >
+                        >
                             {s}
-                          </span>
-                        ))}
-                      </div>
+                        </span>
+                      ))}
                     </div>
+                  </div>
                   )}
                 </div>
               )}
-            </section>
+              </section>
 
             {/* Artists Section */}
             <section className="rounded-3xl border border-[rgb(var(--border))] bg-[rgb(var(--card))] p-6 shadow-soft">
-              <div className="flex items-center justify-between">
+                <div className="flex items-center justify-between">
                 <h2 className="font-serif text-xl text-[rgb(var(--ink))]">
                   Artists ({artists.length})
                 </h2>
@@ -668,8 +668,8 @@ export default function HomePage() {
                   className="rounded-xl bg-[rgb(var(--accent))] px-4 py-2 text-sm font-semibold text-white transition hover:brightness-105"
                 >
                   Add Artist
-                </button>
-              </div>
+                  </button>
+                </div>
               {artists.length === 0 ? (
                 <p className="mt-4 text-sm text-[rgb(var(--muted))]">
                   No artists yet. Click "Add Artist" to get started.
@@ -687,20 +687,20 @@ export default function HomePage() {
                       {artist.styles.length > 0 && (
                         <div className="mt-2 flex flex-wrap gap-2">
                           {artist.styles.map((style, i) => (
-                            <span
+                        <span
                               key={i}
-                              className="rounded-full border border-[rgb(var(--border))] bg-white px-2.5 py-1 text-xs text-[rgb(var(--muted))]"
-                            >
-                              {style}
-                            </span>
-                          ))}
-                        </div>
+                            className="rounded-full border border-[rgb(var(--border))] bg-white px-2.5 py-1 text-xs text-[rgb(var(--muted))]"
+                          >
+                            {style}
+                          </span>
+                        ))}
+                      </div>
                       )}
                     </div>
                   ))}
                 </div>
               )}
-            </section>
+              </section>
 
             {/* Assets Section */}
             <section className="rounded-3xl border border-[rgb(var(--border))] bg-[rgb(var(--card))] p-6 shadow-soft">
@@ -720,67 +720,82 @@ export default function HomePage() {
                   No assets yet. Click "Upload Asset" to get started.
                 </p>
               ) : (
-                <div className="mt-4 space-y-3">
-                  {assets.map((asset) => (
-                    <div
-                      key={asset.id}
-                      className="rounded-2xl border border-[rgb(var(--border))] bg-[rgb(var(--surface))] p-4"
-                    >
-                      <div className="flex items-start justify-between gap-4">
-                        <div className="flex-1">
-                          <p className="text-sm font-semibold text-[rgb(var(--ink))]">
-                            {asset.type} - {asset.mimeType}
-                          </p>
-                          <p className="mt-1 text-xs text-[rgb(var(--muted))]">
+                <div className="mt-4 grid grid-cols-2 gap-4 sm:grid-cols-3 md:grid-cols-4">
+                  {assets.map((asset) => {
+                    // Choose thumbnail for grid: card (800w) for images, poster for videos
+                    const thumbnailUrl = asset.type === "IMAGE"
+                      ? asset.variants.find((v) => v.kind === "card")?.url || asset.variants.find((v) => v.kind === "thumb")?.url || asset.originalSignedUrl
+                      : asset.variants.find((v) => v.kind === "poster")?.url;
+
+                    return (
+                      <div
+                        key={asset.id}
+                        className="group relative rounded-2xl border border-[rgb(var(--border))] bg-[rgb(var(--surface))] overflow-hidden"
+                      >
+                        {/* Thumbnail Preview */}
+                        {thumbnailUrl ? (
+                          <div className="relative aspect-square w-full bg-[rgb(var(--surface-2))]">
+                            <img
+                              src={thumbnailUrl}
+                              alt={`${asset.type} preview`}
+                              className="h-full w-full object-cover"
+                            />
+                            {/* Status Badge */}
+                            <div className="absolute top-2 right-2">
+                              <span
+                                className={`rounded-full px-2 py-1 text-xs font-semibold ${
+                                  asset.status === "READY"
+                                    ? "bg-green-100 text-green-700"
+                                    : asset.status === "PROCESSING"
+                                      ? "bg-yellow-100 text-yellow-700"
+                                      : asset.status === "FAILED"
+                                        ? "bg-red-100 text-red-700"
+                                        : "bg-gray-100 text-gray-700"
+                                }`}
+                              >
+                                {asset.status}
+                              </span>
+                            </div>
+                            {/* Type Badge */}
+                            <div className="absolute bottom-2 left-2">
+                              <span className="rounded-full bg-black/70 px-2 py-1 text-xs font-medium text-white">
+                                {asset.type}
+                              </span>
+                            </div>
+                          </div>
+                        ) : (
+                          <div className="aspect-square w-full bg-[rgb(var(--surface-2))] flex items-center justify-center">
+                            <p className="text-xs text-[rgb(var(--muted))]">Processing...</p>
+                          </div>
+                        )}
+
+                        {/* Info & Actions */}
+                        <div className="p-3 space-y-2">
+                          <p className="text-xs text-[rgb(var(--muted))] truncate">
                             {formatBytes(asset.originalSizeBytes)} · {formatDate(asset.createdAt)}
                           </p>
-                          {asset.variants.length > 0 && (
-                            <div className="mt-2 flex flex-wrap gap-2">
-                              {asset.variants.map((v, i) => (
-                                <span
-                                  key={i}
-                                  className="rounded-full border border-[rgb(var(--border))] bg-white px-2.5 py-1 text-xs text-[rgb(var(--muted))]"
-                                >
-                                  {v.kind} ({v.format})
-                                </span>
-                              ))}
-                            </div>
-                          )}
-                        </div>
-                        <div className="flex flex-col gap-2">
-                          <span
-                            className={`rounded-full px-3 py-1 text-xs font-semibold whitespace-nowrap ${
-                              asset.status === "READY"
-                                ? "bg-green-100 text-green-700"
-                                : asset.status === "PROCESSING"
-                                  ? "bg-yellow-100 text-yellow-700"
-                                  : asset.status === "FAILED"
-                                    ? "bg-red-100 text-red-700"
-                                    : "bg-gray-100 text-gray-700"
-                            }`}
-                          >
-                            {asset.status}
-                          </span>
-                          <button
-                            onClick={() => setPreviewAsset(asset)}
-                            className="rounded-xl border border-[rgb(var(--border))] px-3 py-1 text-xs font-medium text-[rgb(var(--muted))] transition hover:border-[rgb(var(--accent))]"
-                          >
-                            Preview
-                          </button>
-                          <button
-                            onClick={() => setDeleteAssetId(asset.id)}
-                            className="rounded-xl border border-red-300 px-3 py-1 text-xs font-medium text-red-600 transition hover:bg-red-50"
-                          >
-                            Delete
-                          </button>
+                          <div className="flex gap-2">
+                            <button
+                              onClick={() => setPreviewAsset(asset)}
+                              className="flex-1 rounded-lg border border-[rgb(var(--border))] px-2 py-1.5 text-xs font-medium text-[rgb(var(--muted))] transition hover:border-[rgb(var(--accent))] hover:text-[rgb(var(--accent))]"
+                            >
+                              View
+                            </button>
+                            <button
+                              onClick={() => setDeleteAssetId(asset.id)}
+                              className="rounded-lg border border-red-300 px-2 py-1.5 text-xs font-medium text-red-600 transition hover:bg-red-50"
+                            >
+                              🗑
+                            </button>
+                          </div>
                         </div>
                       </div>
-                    </div>
-                  ))}
+                    );
+                  })}
                 </div>
               )}
-            </section>
-          </div>
+          </section>
+        </div>
         )}
       </div>
 
@@ -917,21 +932,23 @@ export default function HomePage() {
           <div className="space-y-4">
             {previewAsset.type === "IMAGE" ? (
               <img
-                src={previewAsset.variants[0]?.url || previewAsset.originalSignedUrl}
+                src={
+                  // Use full (1600w) for detail view, fallback to card/thumb/original
+                  previewAsset.variants.find((v) => v.kind === "full")?.url ||
+                  previewAsset.variants.find((v) => v.kind === "card")?.url ||
+                  previewAsset.variants.find((v) => v.kind === "thumb")?.url ||
+                  previewAsset.originalSignedUrl
+                }
                 alt="Asset preview"
                 className="w-full rounded-xl"
               />
             ) : previewAsset.type === "VIDEO" ? (
-              <div>
-                {previewAsset.variants.find((v) => v.kind === "poster") && (
-                  <img
-                    src={previewAsset.variants.find((v) => v.kind === "poster")!.url}
-                    alt="Video thumbnail"
-                    className="w-full rounded-xl"
-                  />
-                )}
-                <video src={previewAsset.originalSignedUrl} controls className="mt-2 w-full rounded-xl" />
-              </div>
+              <video
+                src={previewAsset.originalSignedUrl}
+                poster={previewAsset.variants.find((v) => v.kind === "poster")?.url}
+                controls
+                className="w-full rounded-xl"
+              />
             ) : null}
             <div className="text-sm text-[rgb(var(--muted))]">
               <p><strong>Type:</strong> {previewAsset.type}</p>
