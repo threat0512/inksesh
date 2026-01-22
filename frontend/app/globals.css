@@ -1,5 +1,17 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
 :root {
   color-scheme: light;
+  --ink: 24 19 14;
+  --muted: 96 83 72;
+  --surface: 251 246 239;
+  --surface-2: 244 236 226;
+  --card: 255 255 255;
+  --border: 229 218 205;
+  --accent: 35 111 96;
+  --accent-2: 214 141 72;
 }
 
 * {
@@ -8,6 +20,16 @@
 
 body {
   margin: 0;
-  background: #ffffff;
-  color: #111111;
+  min-height: 100vh;
+  color: rgb(var(--ink));
+  background: rgb(var(--surface));
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+::selection {
+  background: rgba(var(--accent), 0.2);
 }

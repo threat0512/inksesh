@@ -10,5 +10,6 @@ router.post("/verify", AuthController.verifyAuth);
 
 // Protected routes
 router.get("/me", authenticate, AuthController.getCurrentUser);
+router.post("/logout", authenticate, AuthController.logout);
 
 export default router;

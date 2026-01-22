@@ -3,13 +3,15 @@ import type { ReactNode } from "react";
 
 export const metadata = {
   title: "Inksesh Studio Admin",
-  description: "Frontend scaffold"
+  description: "Studio admin dashboard for managing artists, assets, and studio information."
 };
 
 export default function RootLayout({ children }: { children: ReactNode }) {
   return (
     <html lang="en">
-      <body>{children}</body>
+      <body className="font-sans antialiased">
+        {children}
+      </body>
     </html>
   );
 }

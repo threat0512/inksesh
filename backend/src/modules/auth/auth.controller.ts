@@ -73,4 +73,12 @@ export class AuthController {
       throw error;
     }
   });
+
+  /**
+   * POST /api/auth/logout
+   * Logout current user (client should clear JWT token)
+   */
+  static logout = asyncHandler(async (req: Request, res: Response) => {
+    res.status(200).json({ ok: true, message: "Logged out successfully" });
+  });
 }

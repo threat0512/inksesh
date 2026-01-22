@@ -54,6 +54,19 @@ async function optimizeImage(assetId: string): Promise<void> {
 
     console.log(`Downloaded ${originalBuffer.length} bytes`);
 
+    // Try to load the image to check if Sharp supports it
+    let inputImage;
+    try {
+      inputImage = sharp(originalBuffer);
+      await inputImage.metadata();
+    } catch (error) {
+      const errorMsg = error instanceof Error ? error.message : String(error);
+      if (errorMsg.includes('heif') || errorMsg.includes('HEIC')) {
+        throw new Error('HEIC/HEIF format not supported. Please convert to JPEG, PNG, or WebP before uploading.');
+      }
+      throw error; // Re-throw other errors
+    }
+
     // Process each variant
     for (const spec of VARIANT_SPECS) {
       console.log(`🔄 Processing ${spec.kind} variant (width: ${spec.width}px)...`);

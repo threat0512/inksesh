@@ -1,7 +1,10 @@
 .env
+.env*.local
 node_modules
 dist
 .next
 out
 **/prisma/generated
 generated
+Doc.md
+repomix-output.xml
