@@ -2,6 +2,14 @@
 
 A clean, simple admin dashboard for managing tattoo studio assets, artists, and profile information.
 
+## Quick Start
+
+To try the app, use the phone number **`+919876543210`** to login with the OTP `123456` (in development). Once logged in, you can:
+- Edit your studio profile (name, location, specialties)
+- Add and manage artists with their styles
+- Upload images and videos that are automatically optimized with WebP variants and poster frames
+- View your asset gallery with status badges showing optimization progress
+
 ## Stack
 
 - **Backend**: Express + TypeScript + Prisma + PostgreSQL + pg-boss + AWS S3
